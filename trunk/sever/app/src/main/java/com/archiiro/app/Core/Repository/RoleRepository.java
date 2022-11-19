@@ -8,8 +8,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RoleRepository extends JpaRepository<Role, Long> {
     @Query("Select count(role.id) From Role role Where role.name = ?1")
-    Long checkRoleName(String name);
+    Long isExist(String name);
 
     @Query("Select role From Role role Where role.name = ?1")
-    Role findByName(String name);
+    Role getRole(String name);
 }

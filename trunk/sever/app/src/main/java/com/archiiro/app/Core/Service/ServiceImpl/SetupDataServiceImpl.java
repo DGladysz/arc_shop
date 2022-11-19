@@ -29,14 +29,20 @@ public class SetupDataServiceImpl implements SetupDataService {
         createAdmin();
     }
     private void createRole() {
-        Boolean isExist = roleService.checkRoleName(Constant.ROLE_ADMIN);
+        this.processCreateRole(Constant.ROLE_ADMIN, Constant.ROLE_ADMIN_DESCRIPTION);
+        this.processCreateRole(Constant.ROLE_USER, Constant.ROLE_USER_DESCRIPTION);
+    }
+
+    private void processCreateRole(String name, String description) {
+        Boolean isExist = roleService.isExistByName(name);
         if(!isExist) {
             return;
         }
         RoleDto roleDto = new RoleDto();
-        roleDto.setName(Constant.ROLE_ADMIN);
+        roleDto.setName(name);
+        roleDto.setDescription(description);
         try {
-            roleService.saveRole(roleDto);
+            roleService.saveRole(roleDto, null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -48,8 +54,8 @@ public class SetupDataServiceImpl implements SetupDataService {
         }
         userDto = new UserDto();
         userDto.setUsername(Constant.USER_NAME_ADMIN);
-        userDto.setPassword("admin");
-        Role role = roleService.findByName(Constant.ROLE_ADMIN);
+        userDto.setPassword(Constant.PASSWORD);
+        Role role = roleService.getRole(Constant.ROLE_ADMIN);
         if(role != null) {
             userDto.getRoles().addAll(Arrays.asList(new RoleDto(role)));
         }

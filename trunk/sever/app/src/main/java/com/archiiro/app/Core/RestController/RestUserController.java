@@ -59,7 +59,7 @@ public class RestUserController {
             }
         }
         else {
-            throw new RuntimeException("Refesh token is missing");
+            throw new RuntimeException("Refresh token is missing");
         }
 
     }
@@ -69,8 +69,4 @@ public class RestUserController {
         return this.userService.saveUser(null, dto);
     }
 
-    @RequestMapping(value = "/get/{username}", method = RequestMethod.GET)
-    public UserDto getUser(@PathVariable("username") String username) {
-        return this.userService.findByUsername(username);
-    }
 }

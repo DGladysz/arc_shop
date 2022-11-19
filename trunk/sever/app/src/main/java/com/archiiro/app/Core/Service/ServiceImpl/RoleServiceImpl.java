@@ -10,22 +10,22 @@ import org.springframework.stereotype.Service;
 import java.util.Optional;
 
 @Service
-public class RoleServiceImpl implements RoleService {
+public class RoleServiceImpl extends SupportServiceImpl<Role, Long> implements RoleService {
     @Autowired
-    private RoleRepository roleRepos;
+    private RoleRepository roleRepository;
 
     @Override
-    public Role findByName(String name) {
+    public Role getRole(String name) {
         if(name != null) {
-            return this.roleRepos.findByName(name);
+            return this.roleRepository.getRole(name);
         }
         return null;
     }
 
     @Override
-    public Boolean checkRoleName(String name) {
+    public Boolean isExistByName(String name) {
         if(name != null) {
-            Long result = this.roleRepos.checkRoleName(name);
+            Long result = this.roleRepository.isExist(name);
             if(result == 0) {
                 return true;
             }
@@ -34,31 +34,27 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public RoleDto saveRole(RoleDto dto) {
+    public RoleDto saveRole(RoleDto dto, Long id) {
         if(dto == null) {
-            throw new IllegalArgumentException();
-        } else {
-            Role role = null;
-            if(dto.getId() != null) {
-                Optional<Role> roleOptional = this.roleRepos.findById(dto.getId());
-                if(roleOptional.isPresent()) {
-                    role = roleOptional.get();
-                }
-            }
-            if(role == null) {
-                role = new Role();
-                if(dto.getName() != null) {
-                    if(this.checkRoleName(dto.getName())) {
-                        role.setName(dto.getName());
-                    }
-                }
-            } else {
-                if(this.checkRoleName(dto.getName())) {
-                    role.setName(dto.getName());
-                }
-            }
-            role = this.roleRepos.save(role);
-            return role != null ? new RoleDto(role) : null;
+            return null;
         }
+        Role role = null;
+        if(id != null) {
+            role = this.findOne(id);
+        }
+        if(role == null && dto.getId() != null) {
+            role = this.findOne(dto.getId());
+        }
+        if(role == null) {
+            role = new Role();
+        }
+        if(dto.getName() != null) {
+            role.setName(dto.getName());
+        }
+        if(dto.getDescription() != null) {
+            role.setDescription(dto.getDescription());
+        }
+        role = this.save(role);
+        return new RoleDto(role);
     }
 }
