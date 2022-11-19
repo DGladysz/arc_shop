@@ -12,7 +12,7 @@ import java.util.Set;
 @Entity
 @Table(name="tbl_user")
 @XmlRootElement
-public class User {
+public class User extends BaseObject{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

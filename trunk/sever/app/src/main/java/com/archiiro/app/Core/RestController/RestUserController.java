@@ -37,7 +37,7 @@ public class RestUserController {
                 JWTVerifier verifier = JWT.require(algorithm).build();
                 DecodedJWT decodedJWT = verifier.verify(refresh_token);
                 String username = decodedJWT.getSubject();
-                UserDto user = userService.findByUsername(username);
+                UserDto user = userService.getByUsername(username);
                 String access_token = JWT.create()
                         .withSubject(user.getUsername())
                         .withExpiresAt(new Date(System.currentTimeMillis() + 10*60*1000))
@@ -63,10 +63,4 @@ public class RestUserController {
         }
 
     }
-
-    @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public UserDto saveUser(@RequestBody UserDto dto) {
-        return this.userService.saveUser(null, dto);
-    }
-
 }

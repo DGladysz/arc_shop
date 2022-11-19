@@ -14,9 +14,15 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    @Query("Select count(entity.id) From User entity Where entity.username = ?1")
-    Long checkUsername(String username);
 
+    @Query("Select new com.archiiro.app.Core.Dto.UserDto(entity) From User entity")
+    List<UserDto> getAll();
     @Query("Select new com.archiiro.app.Core.Dto.UserDto(entity) From User entity Where entity.username = ?1")
-    UserDto getUserByUsername(String username);
+    UserDto getUserDto(String username);
+
+    @Query("Select entity From User entity Where entity.username = ?1")
+    User getUser(String username);
+
+    @Query("Select count(entity.id) From User entity Where entity.username = ?1")
+    Long isExist(String username);
 }

@@ -8,4 +8,6 @@ public class Constant {
     public static final String USER_NAME_ADMIN = "admin";
     public static final String USER_NAME_USER = "user";
     public static final String PASSWORD = "123456";
+    public static final String CREATE_BY = "admin";
+    public static final String MODIFIED_BY = "admin";
 }

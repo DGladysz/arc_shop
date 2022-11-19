@@ -1,15 +1,18 @@
 package com.archiiro.app.Core.Service;
 
 import com.archiiro.app.Core.Domain.User;
+import com.archiiro.app.Core.Dto.SearchDto;
 import com.archiiro.app.Core.Dto.UserDto;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
 
 public interface UserService {
-    UserDto saveUser(Long id, UserDto dto);
-
+    List<UserDto> getAll();
+    UserDto getCurrentUser();
+    UserDto getByUsername(String username);
+    UserDto saveUser(UserDto dto, Long id);
     Boolean deleteDto(Long id);
-
-    UserDto findByUsername(String username);
+    Boolean isExist(String username);
+    Page<UserDto> searchByPage(SearchDto searchDto);
 }
