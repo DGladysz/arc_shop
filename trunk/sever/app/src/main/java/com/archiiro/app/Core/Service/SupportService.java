@@ -1,5 +1,7 @@
 package com.archiiro.app.Core.Service;
 
+import org.springframework.data.domain.Page;
+
 import java.io.Serializable;
 
 public interface SupportService<T, Id extends Serializable> {
@@ -12,4 +14,6 @@ public interface SupportService<T, Id extends Serializable> {
     Boolean isExist(Id id);
 
     Boolean isDelete(Id id);
+
+    Page<T> getPage(int pageIndex, int pageSize);
 }

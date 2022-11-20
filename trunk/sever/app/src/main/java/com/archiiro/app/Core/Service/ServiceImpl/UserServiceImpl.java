@@ -5,7 +5,7 @@ import com.archiiro.app.Core.Domain.User;
 import com.archiiro.app.Core.Dto.RoleDto;
 import com.archiiro.app.Core.Dto.SearchDto;
 import com.archiiro.app.Core.Dto.UserDto;
-import com.archiiro.app.Core.Other.Constant;
+import com.archiiro.app.Core.Other.Constants;
 import com.archiiro.app.Core.Other.ProcessUtils;
 import com.archiiro.app.Core.Repository.RoleRepository;
 import com.archiiro.app.Core.Repository.UserRepository;
@@ -84,7 +84,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             if(userOptional.isPresent()) {
                 user = userOptional.get();
                 user.setModifyDate(currentDate);
-                user.setModifiedBy(Constant.MODIFIED_BY);
+                user.setModifiedBy(Constants.MODIFIED_BY);
             }
         }
         if(user == null && dto.getId() != null) {
@@ -92,16 +92,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             if(userOptional.isPresent()) {
                 user = userOptional.get();
                 user.setModifyDate(currentDate);
-                user.setModifiedBy(Constant.MODIFIED_BY);
+                user.setModifiedBy(Constants.MODIFIED_BY);
             }
         }
         if(user == null) {
             user = new User();
             isNew = true;
             user.setCreateDate(currentDate);
-            user.setCreateBy(Constant.CREATE_BY);
+            user.setCreateBy(Constants.CREATE_BY);
             user.setModifyDate(currentDate);
-            user.setModifiedBy(Constant.MODIFIED_BY);
+            user.setModifiedBy(Constants.MODIFIED_BY);
             if(dto.getUsername() != null && StringUtils.hasText(dto.getUsername())) {
                 if(!this.isExist(dto.getUsername())) {
                     return null;

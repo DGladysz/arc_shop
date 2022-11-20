@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @MappedSuperclass
-public class BaseObject {
+public class BaseObject extends BaseObjectMetadata {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

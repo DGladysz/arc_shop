@@ -2,6 +2,9 @@ package com.archiiro.app.Core.Service.ServiceImpl;
 
 import com.archiiro.app.Core.Service.SupportService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.persistence.EntityManager;
@@ -54,5 +57,11 @@ public class SupportServiceImpl<T, Id extends Serializable> implements SupportSe
             return true;
         }
         return false;
+    }
+
+    @Override
+    public Page<T> getPage(int pageIndex, int pageSize) {
+        Pageable pageable = PageRequest.of(pageIndex - 1, pageSize);
+        return this.repository.findAll(pageable);
     }
 }
