@@ -30,12 +30,8 @@ public class SupportServiceImpl<T, Id extends Serializable> implements SupportSe
     }
 
     @Override
-    public T delete(Id id) {
-        T result = this.repository.getOne(id);
-        if(result != null) {
-            this.repository.deleteById(id);
-        }
-        return result;
+    public void delete(Id id) {
+        this.repository.deleteById(id);
     }
 
     @Override
@@ -51,13 +47,6 @@ public class SupportServiceImpl<T, Id extends Serializable> implements SupportSe
         return false;
     }
 
-    @Override
-    public Boolean isDelete(Id id) {
-        if(this.delete(id) != null) {
-            return true;
-        }
-        return false;
-    }
 
     @Override
     public Page<T> getPage(int pageIndex, int pageSize) {

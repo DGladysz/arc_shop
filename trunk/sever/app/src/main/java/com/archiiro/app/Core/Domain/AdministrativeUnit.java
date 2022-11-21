@@ -9,7 +9,7 @@ import java.util.Set;
 @Entity
 @Table(name = "tbl_administrative_unit")
 @XmlRootElement
-public class AdministrativeUnit extends BaseObject{
+public class AdministrativeUnit extends BaseObjectMetadata {
     @Column(name = "level")
     private Integer level;
 

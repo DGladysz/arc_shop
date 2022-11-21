@@ -12,7 +12,4 @@ import java.util.List;
 public interface PersonRepository extends JpaRepository<Person, Long> {
     @Query("Select new com.archiiro.app.Core.Dto.PersonDto(entity) From Person entity")
     List<PersonDto> getAll();
-
-    @Query("Select new com.archiiro.app.Core.Dto.PersonDto(entity) From Person entity Where entity.id =?1")
-    PersonDto getPersonDto(Long id);
 }

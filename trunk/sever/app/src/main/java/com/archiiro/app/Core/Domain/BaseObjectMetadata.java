@@ -1,10 +1,13 @@
 package com.archiiro.app.Core.Domain;
 
-import javax.persistence.Column;
-import javax.persistence.MappedSuperclass;
+import javax.persistence.*;
 
 @MappedSuperclass
 public class BaseObjectMetadata {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(name = "code", unique = true, nullable = false)
     private String code;
 
@@ -16,6 +19,14 @@ public class BaseObjectMetadata {
 
     public String getCode() {
         return code;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setCode(String code) {

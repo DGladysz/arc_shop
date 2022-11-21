@@ -10,4 +10,5 @@ public class Constants {
     public static final String PASSWORD = "123456";
     public static final String CREATE_BY = "admin";
     public static final String MODIFIED_BY = "admin";
+    public static final String LOCAL_PATH = "E:/WEB_FULLSTACK/arc_shop/trunk/sever/assets/image/";
 }
