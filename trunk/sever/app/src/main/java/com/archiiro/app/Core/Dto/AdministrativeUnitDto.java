@@ -54,28 +54,6 @@ public class AdministrativeUnitDto {
         }
     }
 
-    public AdministrativeUnitDto(AdministrativeUnit entity, Boolean includeParent, Boolean includeChild) {
-        this.id = entity.getId();
-        this.code = entity.getCode();
-        this.name = entity.getName();
-        this.level = entity.getLevel();
-
-        if (includeParent && entity.getParent() != null) {
-            this.parent = new AdministrativeUnitDto(entity.getParent());
-            this.parentId = entity.getParent().getId();
-        }
-
-        if (includeChild && entity.getSubAdministrativeUnits() != null
-                && entity.getSubAdministrativeUnits().size() > 0) {
-            List<AdministrativeUnitDto> subs = new ArrayList<>();
-            for (AdministrativeUnit unit : entity.getSubAdministrativeUnits()) {
-                subs.add(new AdministrativeUnitDto(unit, true, false));
-            }
-            this.children = subs;
-        }
-
-    }
-
     public Long getId() {
         return id;
     }

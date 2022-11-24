@@ -3,7 +3,7 @@ package com.archiiro.app.Core.Service.ServiceImpl;
 import com.archiiro.app.Core.Domain.Role;
 import com.archiiro.app.Core.Domain.User;
 import com.archiiro.app.Core.Dto.RoleDto;
-import com.archiiro.app.Core.Dto.SearchDto;
+import com.archiiro.app.Core.Dto.Function.SearchDto;
 import com.archiiro.app.Core.Dto.UserDto;
 import com.archiiro.app.Core.Other.Constants;
 import com.archiiro.app.Core.Other.ProcessUtils;

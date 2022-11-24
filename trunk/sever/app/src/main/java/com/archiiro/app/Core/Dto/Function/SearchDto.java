@@ -1,4 +1,4 @@
-package com.archiiro.app.Core.Dto;
+package com.archiiro.app.Core.Dto.Function;
 
 import java.util.Date;
 

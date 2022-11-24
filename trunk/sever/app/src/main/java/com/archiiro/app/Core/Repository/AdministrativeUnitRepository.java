@@ -15,4 +15,10 @@ public interface AdministrativeUnitRepository extends JpaRepository<Administrati
 
     @Query("Select new com.archiiro.app.Core.Dto.AdministrativeUnitDto(entity, false) From AdministrativeUnit entity Where entity.parent.id is NULL or entity.parent.id = 0 ")
     List<AdministrativeUnitDto> getAllProvince();
+
+    @Query("select new com.archiiro.app.Core.Dto.AdministrativeUnitDto(entity, true) From AdministrativeUnit entity Where entity.id = ?1")
+    AdministrativeUnitDto getDtoById(Long id);
+
+    @Query("Select entity From AdministrativeUnit entity Where entity.code=?1")
+    List<AdministrativeUnit> getListByCode(String code);
 }

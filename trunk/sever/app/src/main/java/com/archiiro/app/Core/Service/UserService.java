@@ -1,7 +1,6 @@
 package com.archiiro.app.Core.Service;
 
-import com.archiiro.app.Core.Domain.User;
-import com.archiiro.app.Core.Dto.SearchDto;
+import com.archiiro.app.Core.Dto.Function.SearchDto;
 import com.archiiro.app.Core.Dto.UserDto;
 import org.springframework.data.domain.Page;
 

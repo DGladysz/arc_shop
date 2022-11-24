@@ -2,7 +2,7 @@ package com.archiiro.app.Core.Service.ServiceImpl;
 
 import com.archiiro.app.Core.Domain.Country;
 import com.archiiro.app.Core.Dto.CountryDto;
-import com.archiiro.app.Core.Dto.SearchDto;
+import com.archiiro.app.Core.Dto.Function.SearchDto;
 import com.archiiro.app.Core.Repository.CountryRepository;
 import com.archiiro.app.Core.Service.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
