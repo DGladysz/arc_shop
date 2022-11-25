@@ -5,7 +5,10 @@ import com.archiiro.app.Core.Dto.EthnicsDto;
 import com.archiiro.app.Core.Dto.Function.SearchDto;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
+
 public interface EthnicsService extends SupportService<Ethnics, Long> {
+    List<EthnicsDto> getAllDto();
     Boolean isExistByCode(String code);
 
     EthnicsDto saveEthnics(EthnicsDto dto, Long id);

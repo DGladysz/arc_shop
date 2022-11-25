@@ -1,6 +1,5 @@
 package com.archiiro.app.Core.RestController;
 
-import com.archiiro.app.Core.Dto.CountryDto;
 import com.archiiro.app.Core.Dto.EthnicsDto;
 import com.archiiro.app.Core.Dto.Function.SearchDto;
 import com.archiiro.app.Core.Other.Constants;
@@ -12,12 +11,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/ethnics")
+@CrossOrigin(origins = "", allowedHeaders = "")
 public class RestEthnicsController {
     @Autowired
     private EthnicsService service;
-
+    @RequestMapping(value = "get-all", method = RequestMethod.GET)
+    public List<EthnicsDto> getAllDto() {
+        List<EthnicsDto> result = this.service.getAllDto();
+        return result;
+    }
     @Secured({Constants.ROLE_ADMIN})
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<EthnicsDto> getEthnicsDto(@PathVariable("id") Long id) {

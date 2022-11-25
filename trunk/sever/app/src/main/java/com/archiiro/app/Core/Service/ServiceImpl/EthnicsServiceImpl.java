@@ -13,11 +13,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Query;
+import java.util.List;
 
 @Service
 public class EthnicsServiceImpl extends SupportServiceImpl<Ethnics, Long> implements EthnicsService {
     @Autowired
     private EthnicsRepository ethnicsRepository;
+
+    @Override
+    public List<EthnicsDto> getAllDto() {
+        return ethnicsRepository.getAllDto();
+    }
 
     @Override
     public Boolean isExistByCode(String code) {

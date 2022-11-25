@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/person")
+@CrossOrigin(origins = "", allowedHeaders = "")
 public class RestPersonController {
     @Autowired
     private PersonService personService;

@@ -23,6 +23,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 @RequestMapping("/api/user")
+@CrossOrigin(origins = "", allowedHeaders = "")
 public class RestUserController {
     @Autowired
     private UserService userService;

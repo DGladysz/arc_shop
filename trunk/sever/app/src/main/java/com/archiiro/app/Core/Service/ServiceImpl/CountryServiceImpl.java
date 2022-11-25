@@ -13,11 +13,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Query;
+import java.util.List;
 
 @Service
 public class CountryServiceImpl extends SupportServiceImpl<Country, Long> implements CountryService {
     @Autowired
     private CountryRepository countryRepository;
+
+    @Override
+    public List<CountryDto> getAllDto() {
+        return countryRepository.getAllDto();
+    }
 
     @Override
     public Boolean isExistByCode(String code) {

@@ -14,11 +14,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.Query;
+import java.util.List;
 
 @Service
 public class ReligionServiceImpl extends SupportServiceImpl<Religion, Long> implements ReligionService {
     @Autowired
     private ReligionRepository religionRepository;
+
+    @Override
+    public List<ReligionDto> getAllDto() {
+        return religionRepository.getAllDto();
+    }
 
     @Override
     public Boolean isExistByCode(String code) {

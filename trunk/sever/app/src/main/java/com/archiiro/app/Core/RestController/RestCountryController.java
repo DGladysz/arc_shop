@@ -11,12 +11,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/country")
+@CrossOrigin(origins = "", allowedHeaders = "")
 public class RestCountryController {
     @Autowired
     private CountryService countryService;
-
+    @RequestMapping(value = "/get-all", method = RequestMethod.GET)
+    public List<CountryDto> getAllDto() {
+        List<CountryDto> result = this.countryService.getAllDto();
+        return result;
+    }
     @Secured({Constants.ROLE_ADMIN})
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<CountryDto> getCountryDto(@PathVariable("id") Long id) {

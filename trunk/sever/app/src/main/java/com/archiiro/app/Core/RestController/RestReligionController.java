@@ -11,12 +11,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/religion")
+@CrossOrigin(origins = "", allowedHeaders = "")
 public class RestReligionController {
     @Autowired
     private ReligionService service;
-
+    @RequestMapping(value = "get-all", method = RequestMethod.GET)
+    public List<ReligionDto> getAllDto() {
+        List<ReligionDto> result = this.service.getAllDto();
+        return result;
+    }
     @Secured({Constants.ROLE_ADMIN})
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<ReligionDto> getReligionDto(@PathVariable("id") Long id) {
