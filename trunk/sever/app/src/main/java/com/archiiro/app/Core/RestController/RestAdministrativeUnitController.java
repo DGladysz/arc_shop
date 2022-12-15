@@ -62,7 +62,7 @@ public class RestAdministrativeUnitController {
     public ResponseEntity<?> importExel(@RequestParam("upload") MultipartFile multipartFile) {
         try {
             ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(multipartFile.getBytes());
-            List<AdministrativeUnitImportExcel> list = FileUploadUtils.getDataFromExcel(byteArrayInputStream);
+            List<AdministrativeUnitImportExcel> list = FileUploadUtils.getDataAdministrativeUnit(byteArrayInputStream);
             if(list != null && list.size() > 0) {
                 service.importExcel(list);
             }

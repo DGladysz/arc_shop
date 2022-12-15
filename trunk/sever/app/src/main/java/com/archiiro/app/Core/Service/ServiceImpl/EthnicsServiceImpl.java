@@ -68,6 +68,15 @@ public class EthnicsServiceImpl extends SupportServiceImpl<Ethnics, Long> implem
     }
 
     @Override
+    public void importExcel(List<EthnicsDto> dtos) {
+        if(dtos != null && dtos.size() > 0) {
+            for(EthnicsDto dto : dtos) {
+                this.saveEthnics(dto, null);
+            }
+        }
+    }
+
+    @Override
     public Boolean deleteEthnics(Long id) {
         if(id != null) {
             if(this.findOne(id) != null) {
