@@ -13,6 +13,8 @@ public interface CountryService extends SupportService<Country, Long> {
 
     CountryDto saveCountry(CountryDto dto, Long id);
 
+    void importExcel(List<CountryDto> dtos);
+
     Boolean deleteCountry(Long id);
 
     CountryDto getCountryDto(Long id);

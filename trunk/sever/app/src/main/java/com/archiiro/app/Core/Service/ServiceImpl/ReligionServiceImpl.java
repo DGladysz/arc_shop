@@ -69,6 +69,15 @@ public class ReligionServiceImpl extends SupportServiceImpl<Religion, Long> impl
     }
 
     @Override
+    public void importExcel(List<ReligionDto> dtos) {
+        if(dtos != null && dtos.size() > 0) {
+            for(ReligionDto dto : dtos) {
+                this.saveReligion(dto, null);
+            }
+        }
+    }
+
+    @Override
     public Boolean deleteReligion(Long id) {
         if(id != null) {
             if(this.findOne(id) != null) {

@@ -68,6 +68,15 @@ public class CountryServiceImpl extends SupportServiceImpl<Country, Long> implem
     }
 
     @Override
+    public void importExcel(List<CountryDto> dtos) {
+        if(dtos != null && dtos.size() > 0) {
+            for (CountryDto dto : dtos) {
+                this.saveCountry(dto, null);
+            }
+        }
+    }
+
+    @Override
     public Boolean deleteCountry(Long id) {
         if(id != null) {
             if(this.findOne(id) != null) {

@@ -13,6 +13,8 @@ public interface ReligionService extends SupportService<Religion, Long> {
 
     ReligionDto saveReligion(ReligionDto dto, Long id);
 
+    void importExcel(List<ReligionDto> dtos);
+
     Boolean deleteReligion(Long id);
 
     ReligionDto getReligionDto(Long id);
