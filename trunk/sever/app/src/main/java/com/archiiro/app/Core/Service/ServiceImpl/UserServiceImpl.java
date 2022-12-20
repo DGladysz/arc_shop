@@ -1,5 +1,6 @@
 package com.archiiro.app.Core.Service.ServiceImpl;
 
+import com.archiiro.app.Core.Domain.Person;
 import com.archiiro.app.Core.Domain.Role;
 import com.archiiro.app.Core.Domain.User;
 import com.archiiro.app.Core.Dto.RoleDto;
@@ -7,6 +8,7 @@ import com.archiiro.app.Core.Dto.Function.SearchDto;
 import com.archiiro.app.Core.Dto.UserDto;
 import com.archiiro.app.Core.Other.Constants;
 import com.archiiro.app.Core.Other.ProcessUtils;
+import com.archiiro.app.Core.Repository.PersonRepository;
 import com.archiiro.app.Core.Repository.RoleRepository;
 import com.archiiro.app.Core.Repository.UserRepository;
 import com.archiiro.app.Core.Service.UserService;
@@ -32,6 +34,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private PersonRepository personRepository;
 
     @Override
         public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -133,6 +138,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 user.getRoles().addAll(roles);
             } else {
                 user.setRoles(roles);
+            }
+        }
+        if(dto.getPersonId() != null) {
+            Optional<Person> personOptional = this.personRepository.findById(dto.getPersonId());
+            if(personOptional.isPresent()) {
+                user.setPerson(personOptional.get());
             }
         }
         user = this.userRepository.save(user);

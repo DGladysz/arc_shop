@@ -64,9 +64,9 @@ public class Person extends BaseObject{
     @OneToMany(mappedBy = "person", fetch = FetchType.EAGER, cascade = {CascadeType.ALL}, orphanRemoval = true)
     protected Set<PersonAddress> address; // Địa chỉ
 
-//    @ManyToOne(cascade = {CascadeType.ALL}, optional = true, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id", unique = false)
-//    protected User user;
+    @ManyToOne(cascade = {CascadeType.ALL}, optional = true, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", unique = false)
+    protected User user;
 
 
     public String getFirstName() {
@@ -203,5 +203,12 @@ public class Person extends BaseObject{
 
     public void setAddress(Set<PersonAddress> address) {
         this.address = address;
+    }
+
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
     }
 }
