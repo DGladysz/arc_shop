@@ -1,10 +1,10 @@
 package com.archiiro.app.Core.Service.ServiceImpl;
 
-import com.archiiro.app.Core.Domain.FileDescription;
-import com.archiiro.app.Core.Domain.Person;
+import com.archiiro.app.Core.Domain.*;
+import com.archiiro.app.Core.Dto.PersonAddressDto;
 import com.archiiro.app.Core.Dto.PersonDto;
 import com.archiiro.app.Core.Other.Constants;
-import com.archiiro.app.Core.Repository.PersonRepository;
+import com.archiiro.app.Core.Repository.*;
 import com.archiiro.app.Core.Service.FileDescriptionService;
 import com.archiiro.app.Core.Service.PersonService;
 import org.slf4j.Logger;
@@ -20,6 +20,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,6 +31,16 @@ public class PersonServiceImpl extends SupportServiceImpl<Person, Long> implemen
     private PersonRepository personRepository;
     @Autowired
     private FileDescriptionService fileDescriptionService;
+    @Autowired
+    private CountryRepository countryRepository;
+    @Autowired
+    private AdministrativeUnitRepository administrativeUnitRepository;
+    @Autowired
+    private EthnicsRepository ethnicsRepository;
+    @Autowired
+    private ReligionRepository religionRepository;
+    @Autowired
+    private PersonAddressRepository personAddressRepository;
 
     private static final Logger logger = LoggerFactory.getLogger(PersonServiceImpl.class);
 
@@ -114,7 +126,57 @@ public class PersonServiceImpl extends SupportServiceImpl<Person, Long> implemen
         if(dto.getIdNumberIssueDate() != null) {
             person.setIdNumberIssueDate(dto.getIdNumberIssueDate());
         }
-        // image
+        if(dto.getNationality() != null && dto.getNationality().getId() != null) {
+            Country country = countryRepository.getById(dto.getNationality().getId());
+            if(country != null) {
+                person.setNationality(country);
+            }
+        }
+        if(dto.getEthnics() != null && dto.getEthnics().getId() != null) {
+            Ethnics ethnics = ethnicsRepository.getById(dto.getEthnics().getId());
+            if(ethnics != null) {
+                person.setEthnics(ethnics);
+            }
+        }
+        if(dto.getReligion() != null && dto.getReligion().getId() != null) {
+            Religion religion = religionRepository.getById(dto.getReligion().getId());
+            if(religion != null) {
+                person.setReligion(religion);
+            }
+        }
+        if(dto.getAddress() != null && dto.getAddress().size() > 0) {
+            Iterator<PersonAddressDto> iterator = dto.getAddress().iterator();
+            HashSet<PersonAddress> personAddresses = new HashSet<PersonAddress>();
+            while (iterator.hasNext()) {
+                PersonAddressDto personAddressDto = iterator.next();
+                PersonAddress personAddress = null;
+                if(personAddressDto.getId() != null) {
+                    personAddress = personAddressRepository.getById(personAddressDto.getId());
+                }
+                if(personAddress == null) {
+                    personAddress = new PersonAddress();
+                }
+                if(personAddressDto.getAddress() != null) {
+                    personAddress.setAddress(personAddressDto.getAddress());
+                }
+                if(personAddressDto.getCity() != null) {
+                    personAddress.setCity(personAddressDto.getCity());
+                }
+                if(personAddressDto.getProvince() != null) {
+                    personAddress.setProvince(personAddressDto.getProvince());
+                }
+                if(personAddressDto.getCountry() != null) {
+                    personAddress.setCountry(personAddressDto.getCountry());
+                }
+                personAddresses.add(personAddress);
+            }
+            if(person.getAddress() != null) {
+                person.getAddress().clear();
+                person.getAddress().addAll(personAddresses);
+            } else {
+                person.setAddress(personAddresses);
+            }
+        }
         person = this.save(person);
         return new PersonDto(person);
     }

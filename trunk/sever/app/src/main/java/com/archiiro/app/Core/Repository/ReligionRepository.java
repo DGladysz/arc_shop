@@ -14,4 +14,7 @@ public interface ReligionRepository extends JpaRepository<Religion, Long> {
     List<ReligionDto> getAllDto();
     @Query("Select count(entity.id) From Religion entity Where entity.code = ?1")
     Long isExistByCode(String code);
+
+    @Query("Select entity From Religion entity Where entity.id = ?1")
+    Religion getById(Long id);
 }

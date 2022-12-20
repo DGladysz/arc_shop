@@ -12,4 +12,6 @@ import java.util.List;
 public interface PersonAddressRepository extends JpaRepository<PersonAddress, Long> {
     @Query("Select new com.archiiro.app.Core.Dto.PersonAddressDto(entity) From PersonAddress entity Where entity.person.id = ?1")
     List<PersonAddressDto> getAddressByPersonId(Long id);
+    @Query("Select entity From PersonAddress entity Where entity.id = ?1")
+    PersonAddress getById(Long id);
 }

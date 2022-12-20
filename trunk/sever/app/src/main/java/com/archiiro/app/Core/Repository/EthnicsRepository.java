@@ -14,4 +14,7 @@ public interface EthnicsRepository extends JpaRepository<Ethnics, Long> {
     List<EthnicsDto> getAllDto();
     @Query("Select count(entity.id) From Ethnics entity Where entity.code = ?1")
     Long isExistByCode(String code);
+
+    @Query("Select entity From Ethnics entity Where entity.id = ?1")
+    Ethnics getById(Long id);
 }

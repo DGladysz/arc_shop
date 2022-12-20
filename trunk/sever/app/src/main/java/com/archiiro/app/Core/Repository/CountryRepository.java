@@ -14,4 +14,6 @@ public interface CountryRepository extends JpaRepository<Country, Long> {
     List<CountryDto> getAllDto();
     @Query("Select count(entity.id) From Country entity Where entity.code = ?1")
     Long isExistByCode(String code);
+    @Query("Select entity From Country entity Where entity.id = ?1")
+    Country getById(Long id);
 }
