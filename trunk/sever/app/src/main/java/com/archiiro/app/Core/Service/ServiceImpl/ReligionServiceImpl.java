@@ -43,6 +43,7 @@ public class ReligionServiceImpl extends SupportServiceImpl<Religion, Long> impl
             return null;
         }
         Religion religion = null;
+        boolean isNew = true;
         if(id != null) {
             religion = this.findOne(id);
         }
@@ -50,12 +51,8 @@ public class ReligionServiceImpl extends SupportServiceImpl<Religion, Long> impl
             religion = this.findOne(dto.getId());
         }
         if(religion == null) {
-            if(dto.getCode() != null) {
-                if(!this.isExistByCode(dto.getCode())) {
-                    return null;
-                }
-                religion = new Religion();
-            }
+            religion = new Religion();
+            isNew = true;
         }
         if(dto.getCode() != null) {
             religion.setCode(dto.getCode());

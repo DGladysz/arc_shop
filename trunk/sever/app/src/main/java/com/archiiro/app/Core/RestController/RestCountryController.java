@@ -26,23 +26,23 @@ public class RestCountryController {
     }
     @Secured({Constants.ROLE_ADMIN})
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<CountryDto> getCountryDto(@PathVariable("id") Long id) {
+    public CountryDto getCountryDto(@PathVariable("id") Long id) {
         CountryDto result = this.countryService.getCountryDto(id);
-        return new ResponseEntity<>(result, result != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+        return result;
     }
 
     @Secured({Constants.ROLE_ADMIN})
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<CountryDto> saveCountry(@RequestBody CountryDto dto) {
+    public CountryDto saveCountry(@RequestBody CountryDto dto) {
         CountryDto result = this.countryService.saveCountry(dto, null);
-        return new ResponseEntity<>(result, result != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+        return result;
     }
 
     @Secured({Constants.ROLE_ADMIN})
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<CountryDto> updateCountry(@RequestBody CountryDto dto, @PathVariable("id") Long id) {
+    public CountryDto updateCountry(@RequestBody CountryDto dto, @PathVariable("id") Long id) {
         CountryDto result = this.countryService.saveCountry(dto, id);
-        return new ResponseEntity<>(result, result != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+        return result;
     }
 
     @Secured({Constants.ROLE_ADMIN})

@@ -101,11 +101,6 @@ public class AdministrativeUnitServiceImpl extends SupportServiceImpl<Administra
             administrativeUnit = this.findOne(dto.getId());
         }
         if (administrativeUnit == null) {
-            if (dto.getCode() != null) {
-                if (!this.isExistByCode(dto.getCode())) {
-                    return null;
-                }
-            }
             administrativeUnit = new AdministrativeUnit();
             isNew = true;
         }

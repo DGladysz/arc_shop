@@ -26,23 +26,23 @@ public class RestReligionController {
     }
     @Secured({Constants.ROLE_ADMIN})
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<ReligionDto> getReligionDto(@PathVariable("id") Long id) {
+    public ReligionDto getReligionDto(@PathVariable("id") Long id) {
         ReligionDto result = this.service.getReligionDto(id);
-        return new ResponseEntity<>(result, result != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+        return result;
     }
 
     @Secured({Constants.ROLE_ADMIN})
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<ReligionDto> saveReligion(@RequestBody ReligionDto dto) {
+    public ReligionDto saveReligion(@RequestBody ReligionDto dto) {
         ReligionDto result = this.service.saveReligion(dto, null);
-        return new ResponseEntity<>(result, result != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+        return result;
     }
 
     @Secured({Constants.ROLE_ADMIN})
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<ReligionDto> updateReligion(@RequestBody ReligionDto dto, @PathVariable("id") Long id) {
+    public ReligionDto updateReligion(@RequestBody ReligionDto dto, @PathVariable("id") Long id) {
         ReligionDto result = this.service.saveReligion(dto, id);
-        return new ResponseEntity<>(result, result != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+        return result;
     }
 
     @Secured({Constants.ROLE_ADMIN})

@@ -42,6 +42,7 @@ public class CountryServiceImpl extends SupportServiceImpl<Country, Long> implem
             return null;
         }
         Country country = null;
+        boolean isNew = false;
         if(id != null) {
             country = this.findOne(id);
         }
@@ -49,12 +50,8 @@ public class CountryServiceImpl extends SupportServiceImpl<Country, Long> implem
             country = this.findOne(dto.getId());
         }
         if(country == null) {
-            if(dto.getCode() != null) {
-                if(!this.isExistByCode(dto.getCode())) {
-                    return null;
-                }
-                country = new Country();
-            }
+            country = new Country();
+            isNew = true;
         }
         if(dto.getCode() != null) {
             country.setCode(dto.getCode());

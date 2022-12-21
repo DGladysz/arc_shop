@@ -26,23 +26,23 @@ public class RestEthnicsController {
     }
     @Secured({Constants.ROLE_ADMIN})
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<EthnicsDto> getEthnicsDto(@PathVariable("id") Long id) {
+    public EthnicsDto getEthnicsDto(@PathVariable("id") Long id) {
         EthnicsDto result = this.service.getEthnicsDto(id);
-        return new ResponseEntity<>(result, result != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+        return result;
     }
 
     @Secured({Constants.ROLE_ADMIN})
     @RequestMapping(value = "", method = RequestMethod.POST)
-    public ResponseEntity<EthnicsDto> saveEthnics(@RequestBody EthnicsDto dto) {
+    public EthnicsDto saveEthnics(@RequestBody EthnicsDto dto) {
         EthnicsDto result = this.service.saveEthnics(dto, null);
-        return new ResponseEntity<>(result, result != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+        return result;
     }
 
     @Secured({Constants.ROLE_ADMIN})
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<EthnicsDto> updateEthnics(@RequestBody EthnicsDto dto, @PathVariable("id") Long id) {
+    public EthnicsDto updateEthnics(@RequestBody EthnicsDto dto, @PathVariable("id") Long id) {
         EthnicsDto result = this.service.saveEthnics(dto, id);
-        return new ResponseEntity<>(result, result != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
+        return result;
     }
 
     @Secured({Constants.ROLE_ADMIN})

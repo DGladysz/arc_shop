@@ -42,6 +42,7 @@ public class EthnicsServiceImpl extends SupportServiceImpl<Ethnics, Long> implem
             return null;
         }
         Ethnics ethnics = null;
+        boolean isNew = false;
         if(id != null) {
             ethnics = this.findOne(id);
         }
@@ -49,12 +50,8 @@ public class EthnicsServiceImpl extends SupportServiceImpl<Ethnics, Long> implem
             ethnics = this.findOne(dto.getId());
         }
         if(ethnics == null) {
-            if(dto.getCode() != null) {
-                if(!this.isExistByCode(dto.getCode())) {
-                    return null;
-                }
-                ethnics = new Ethnics();
-            }
+            ethnics = new Ethnics();
+            isNew = true;
         }
         if(dto.getCode() != null) {
             ethnics.setCode(dto.getCode());
