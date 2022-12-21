@@ -21,4 +21,7 @@ public interface AdministrativeUnitRepository extends JpaRepository<Administrati
 
     @Query("Select entity From AdministrativeUnit entity Where entity.code=?1")
     List<AdministrativeUnit> getListByCode(String code);
+
+    @Query("select entity From AdministrativeUnit entity Where entity.id = ?1")
+    AdministrativeUnit getAdministrative(Long id);
 }
