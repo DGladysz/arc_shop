@@ -8,6 +8,7 @@ public class TypeProductDto {
     private String name;
     private String description;
 
+    private Integer status;
     public TypeProductDto() {
     }
 
@@ -17,6 +18,7 @@ public class TypeProductDto {
             this.code = entity.getCode();
             this.name = entity.getName();
             this.description = entity.getDescription();
+            this.status = entity.getStatus();
         }
     }
 
@@ -50,5 +52,13 @@ public class TypeProductDto {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

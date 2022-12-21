@@ -1,6 +1,5 @@
 package com.archiiro.app.DTShop.Service.ServiceImpl;
 
-import com.archiiro.app.Core.Dto.EthnicsDto;
 import com.archiiro.app.Core.Dto.Function.SearchDto;
 import com.archiiro.app.Core.Service.ServiceImpl.SupportServiceImpl;
 import com.archiiro.app.DTShop.Domain.TypeProduct;
@@ -63,6 +62,9 @@ public class TypeProductServiceImpl extends SupportServiceImpl<TypeProduct, Long
         }
         if(dto.getDescription() != null) {
             typeProduct.setDescription(dto.getDescription());
+        }
+        if(dto.getStatus() != null) {
+            typeProduct.setStatus(dto.getStatus());
         }
         typeProduct = this.save(typeProduct);
         return new TypeProductDto(typeProduct);
