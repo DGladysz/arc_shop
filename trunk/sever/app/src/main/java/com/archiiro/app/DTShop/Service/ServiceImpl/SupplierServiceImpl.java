@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.persistence.Query;
 import java.util.List;
 
-@Service  
+@Service
 public class SupplierServiceImpl extends SupportServiceImpl<Supplier, Long> implements SupplierService {
     @Autowired
     private SupplierRepository supplierRepository;

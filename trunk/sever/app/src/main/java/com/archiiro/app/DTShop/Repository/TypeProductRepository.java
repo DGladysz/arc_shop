@@ -15,4 +15,7 @@ public interface TypeProductRepository extends JpaRepository<TypeProduct, Long> 
 
     @Query("Select count(entity.id) From TypeProduct entity Where entity.code = ?1")
     Long isExistByCode(String code);
+    @Query("Select entity From TypeProduct entity Where entity.id = ?1")
+    TypeProduct getTypeProduct(Long id);
+
 }
