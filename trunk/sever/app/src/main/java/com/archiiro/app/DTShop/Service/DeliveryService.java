@@ -17,5 +17,7 @@ public interface DeliveryService extends SupportService<Delivery, Long> {
 
     DeliveryDto saveDelivery(DeliveryDto dto, Long id);
 
+    Boolean deleteDelivery(Long id);
+
     Page<DeliveryDto> searchByPage(SearchDto searchDto);
 }

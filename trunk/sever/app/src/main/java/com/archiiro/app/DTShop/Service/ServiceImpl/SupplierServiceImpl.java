@@ -4,10 +4,10 @@ import com.archiiro.app.Core.Domain.AdministrativeUnit;
 import com.archiiro.app.Core.Dto.Function.SearchDto;
 import com.archiiro.app.Core.Repository.AdministrativeUnitRepository;
 import com.archiiro.app.Core.Service.ServiceImpl.SupportServiceImpl;
-import com.archiiro.app.DTShop.Domain.Delivery;
-import com.archiiro.app.DTShop.Dto.DeliveryDto;
-import com.archiiro.app.DTShop.Repository.DeliveryRepository;
-import com.archiiro.app.DTShop.Service.DeliveryService;
+import com.archiiro.app.DTShop.Domain.Supplier;
+import com.archiiro.app.DTShop.Dto.SupplierDto;
+import com.archiiro.app.DTShop.Repository.SupplierRepository;
+import com.archiiro.app.DTShop.Service.SupplierService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -18,23 +18,23 @@ import org.springframework.stereotype.Service;
 import javax.persistence.Query;
 import java.util.List;
 
-@Service
-public class DeliveryServiceImpl extends SupportServiceImpl<Delivery, Long> implements DeliveryService {
+@Service  
+public class SupplierServiceImpl extends SupportServiceImpl<Supplier, Long> implements SupplierService {
     @Autowired
-    private DeliveryRepository deliveryRepository;
+    private SupplierRepository supplierRepository;
 
     @Autowired
     private AdministrativeUnitRepository administrativeUnitRepos;
 
     @Override
-    public List<DeliveryDto> getAll() {
-        return this.deliveryRepository.getAll();
+    public List<SupplierDto> getAll() {
+        return this.supplierRepository.getAll();
     }
 
     @Override
     public Boolean isExist(String code) {
         if(code != null) {
-            Long number = deliveryRepository.isExist(code);
+            Long number = this.supplierRepository.isExist(code);
             if(number == 0) {
                 return true;
             }
@@ -43,63 +43,61 @@ public class DeliveryServiceImpl extends SupportServiceImpl<Delivery, Long> impl
     }
 
     @Override
-    public DeliveryDto getDtoById(Long id) {
+    public SupplierDto getDtoById(Long id) {
         if(id != null) {
-            Delivery delivery = this.findOne(id);
-            if(delivery != null) {
-                return new DeliveryDto(delivery);
+            Supplier supplier = this.supplierRepository.getById(id);
+            if(supplier != null) {
+                return new SupplierDto(supplier);
             }
         }
         return null;
     }
 
     @Override
-    public DeliveryDto saveDelivery(DeliveryDto dto, Long id) {
+    public SupplierDto saveSupplier(SupplierDto dto, Long id) {
         if(dto == null) {
             return null;
         }
-        Delivery delivery = null;
-        boolean isNew = false;
+        Supplier supplier = null;
         if(id != null) {
-            delivery = this.findOne(id);
+            supplier = this.findOne(id);
         }
-        if(delivery == null && dto.getId() != null) {
-            delivery = this.findOne(dto.getId());
+        if(supplier == null && dto.getId() != null) {
+            supplier = this.findOne(dto.getId());
         }
-        if(delivery == null) {
-            delivery = new Delivery();
-            isNew = true;
+        if(supplier == null) {
+            supplier = new Supplier();
         }
         if(dto.getCode() != null) {
-            delivery.setCode(dto.getCode());
+            supplier.setCode(dto.getCode());
         }
         if(dto.getName() != null) {
-            delivery.setName(dto.getName());
+            supplier .setName(dto.getName());
         }
         if(dto.getDescription() != null) {
-            delivery.setDescription(dto.getDescription());
+            supplier.setDescription(dto.getDescription());
         }
         if(dto.getStatus() != null) {
-            delivery.setStatus(dto.getStatus());
+            supplier.setStatus(dto.getStatus());
         }
         if(dto.getAddress() != null && dto.getAddress().getId() != null) {
-            AdministrativeUnit address =  administrativeUnitRepos.getAdministrative(dto.getAddress().getId());
+            AdministrativeUnit address = this.administrativeUnitRepos.getAdministrative(dto.getAddress().getId());
             if(address != null) {
-                delivery.setAddress(address);
+                supplier.setAddress(address);
             }
         }
         if(dto.getAddressDetail() != null) {
-            delivery.setAddressDetails(dto.getAddressDetail());
+            supplier.setAddressDetails(dto.getAddressDetail());
         }
-        delivery = this.save(delivery);
-        return new DeliveryDto(delivery);
+        supplier = this.save(supplier);
+        return new SupplierDto(supplier);
     }
 
     @Override
-    public Boolean deleteDelivery(Long id) {
+    public Boolean deleteSupplier(Long id) {
         if(id != null) {
-            Delivery delivery = this.findOne(id);
-            if(delivery != null) {
+            Supplier supplier = this.findOne(id);
+            if(supplier != null) {
                 this.delete(id);
                 return true;
             }
@@ -108,7 +106,7 @@ public class DeliveryServiceImpl extends SupportServiceImpl<Delivery, Long> impl
     }
 
     @Override
-    public Page<DeliveryDto> searchByPage(SearchDto searchDto) {
+    public Page<SupplierDto> searchByPage(SearchDto searchDto) {
         if(searchDto != null && searchDto.getPageIndex() != null && searchDto.getPageSize() != null) {
             int pageIndex = searchDto.getPageIndex();
             int pageSize = searchDto.getPageSize();
@@ -117,8 +115,8 @@ public class DeliveryServiceImpl extends SupportServiceImpl<Delivery, Long> impl
             } else {
                 pageIndex = 0;
             }
-            String sqlSelect = "Select new com.archiiro.app.DTShop.Dto.DeliveryDto(entity) From Delivery entity ";
-            String sqlCount = "Select count(entity.id) From Delivery entity ";
+            String sqlSelect = "Select new com.archiiro.app.DTShop.Dto.SupplierDto(entity) From Supplier entity ";
+            String sqlCount = "Select count(entity.id) From Supplier entity ";
             String orderBy = " Order By entity.name ";
             String whereClause = " Where (1=1) ";
             if(searchDto.getTextSearch() != null) {
@@ -126,7 +124,7 @@ public class DeliveryServiceImpl extends SupportServiceImpl<Delivery, Long> impl
             }
             sqlSelect += whereClause + orderBy;
             sqlCount += whereClause;
-            Query q = this.manager.createQuery(sqlSelect, DeliveryDto.class);
+            Query q = this.manager.createQuery(sqlSelect, SupplierDto.class);
             Query qCount = this.manager.createQuery(sqlCount);
             if(searchDto.getTextSearch() != null) {
                 q.setParameter("textSearch", '%' + searchDto.getTextSearch() + '%');
@@ -136,7 +134,7 @@ public class DeliveryServiceImpl extends SupportServiceImpl<Delivery, Long> impl
             q.setMaxResults(pageSize);
             Long number = (Long) qCount.getSingleResult();
             Pageable pageable = PageRequest.of(pageIndex, pageSize);
-            Page<DeliveryDto> page = new PageImpl<>(q.getResultList(), pageable , number);
+            Page<SupplierDto> page = new PageImpl<>(q.getResultList(), pageable , number);
             return page;
         }
         return null;
