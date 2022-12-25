@@ -1,9 +1,12 @@
 package com.archiiro.app.DTShop.Domain;
 
 import com.archiiro.app.Core.Domain.BaseObjectMetadata;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.Set;
 
 @Entity
 @Table(name = "tbl_product")
@@ -24,8 +27,9 @@ public class Product extends BaseObjectMetadata {
     @Column(name = "status")
     private Integer status;
 
-    @Column(name = "image")
-    private String imagePath;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @NotFound(action = NotFoundAction.IGNORE)
+    private Set<Image> images;
 
     @ManyToOne
     @JoinColumn(name = "id_type_product")
@@ -71,12 +75,12 @@ public class Product extends BaseObjectMetadata {
         this.status = status;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public Set<Image> getImages() {
+        return images;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImages(Set<Image> images) {
+        this.images = images;
     }
 
     public TypeProduct getTypeProduct() {

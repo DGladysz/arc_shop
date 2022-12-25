@@ -5,7 +5,6 @@ import com.archiiro.app.Core.Service.ServiceImpl.SupportServiceImpl;
 import com.archiiro.app.DTShop.Domain.Product;
 import com.archiiro.app.DTShop.Domain.TypeProduct;
 import com.archiiro.app.DTShop.Dto.ProductDto;
-import com.archiiro.app.DTShop.Dto.SupplierDto;
 import com.archiiro.app.DTShop.Repository.ProductRepository;
 import com.archiiro.app.DTShop.Repository.TypeProductRepository;
 import com.archiiro.app.DTShop.Service.ProductService;
@@ -49,7 +48,7 @@ public class ProductServiceImpl extends SupportServiceImpl<Product, Long> implem
         if(id != null) {
             Product product = this.findOne(id);
             if(product != null) {
-                return new ProductDto(product);
+                return new ProductDto(product, true);
             }
         }
         return null;
@@ -103,7 +102,7 @@ public class ProductServiceImpl extends SupportServiceImpl<Product, Long> implem
             }
         }
         product = this.save(product);
-        return new ProductDto(product);
+        return new ProductDto(product, true);
     }
 
     @Override
@@ -140,7 +139,7 @@ public class ProductServiceImpl extends SupportServiceImpl<Product, Long> implem
             } else {
                 pageIndex = 0;
             }
-            String sqlSelect = "Select new com.archiiro.app.DTShop.Dto.ProductDto(entity) From Product entity ";
+            String sqlSelect = "Select new com.archiiro.app.DTShop.Dto.ProductDto(entity, true) From Product entity ";
             String sqlCount = "Select count(entity.id) From Product entity ";
             String orderBy = " Order By entity.name ";
             String whereClause = " Where (1=1) ";

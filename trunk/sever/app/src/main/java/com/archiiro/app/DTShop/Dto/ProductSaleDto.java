@@ -1,6 +1,6 @@
 package com.archiiro.app.DTShop.Dto;
 
-import com.archiiro.app.DTShop.Domain.ImagePath;
+import com.archiiro.app.DTShop.Domain.Image;
 import com.archiiro.app.DTShop.Domain.ProductSale;
 
 import java.util.Date;
@@ -14,31 +14,29 @@ public class ProductSaleDto {
     private Double sale;
     private ProductDto product;
     private Long idProduct;
-    private Set<ImagePathDto> imagePaths;
+    private Set<ImageDto> images;
 
     public ProductSaleDto() {
 
     }
-
-    public ProductSaleDto(ProductSale entity, boolean arc) {
+    public ProductSaleDto(ProductSale entity, boolean includeImage) {
         if(entity != null) {
             this.id = entity.getId();
             this.startDate = entity.getStartDate();
             this.period = entity.getPeriod();
             this.sale = entity.getSale();
             if(entity.getProduct() != null && entity.getProduct().getId() != null) {
-                this.product = new ProductDto(entity.getProduct());
+                this.product = new ProductDto(entity.getProduct(), false);
                 this.idProduct = entity.getProduct().getId();
             }
-            if(arc) {
-                if(entity.getImagePaths() != null && entity.getImagePaths().size() > 0) {
-                    this.imagePaths = new HashSet<ImagePathDto>();
-                    for(ImagePath imagePath : entity.getImagePaths()) {
-                        this.imagePaths.add(new ImagePathDto(imagePath));
+            if(includeImage) {
+                if(entity.getImages() != null && entity.getImages().size() > 0) {
+                    this.images = new HashSet<ImageDto>();
+                    for(Image image : entity.getImages()) {
+                        this.images.add(new ImageDto(image, false));
                     }
                 }
             }
-
         }
     }
 
@@ -90,11 +88,11 @@ public class ProductSaleDto {
         this.idProduct = idProduct;
     }
 
-    public Set<ImagePathDto> getImagePaths() {
-        return imagePaths;
+    public Set<ImageDto> getImages() {
+        return images;
     }
 
-    public void setImagePaths(Set<ImagePathDto> imagePaths) {
-        this.imagePaths = imagePaths;
+    public void setImages(Set<ImageDto> images) {
+        this.images = images;
     }
 }

@@ -1,12 +1,12 @@
 package com.archiiro.app.DTShop.Service.ServiceImpl;
 
 import com.archiiro.app.Core.Service.ServiceImpl.SupportServiceImpl;
-import com.archiiro.app.DTShop.Domain.ImagePath;
+import com.archiiro.app.DTShop.Domain.Image;
 import com.archiiro.app.DTShop.Domain.Product;
 import com.archiiro.app.DTShop.Domain.ProductSale;
-import com.archiiro.app.DTShop.Dto.ImagePathDto;
+import com.archiiro.app.DTShop.Dto.ImageDto;
 import com.archiiro.app.DTShop.Dto.ProductSaleDto;
-import com.archiiro.app.DTShop.Repository.ImagePathRepository;
+import com.archiiro.app.DTShop.Repository.ImageRepository;
 import com.archiiro.app.DTShop.Repository.ProductRepository;
 import com.archiiro.app.DTShop.Repository.ProductSaleRepository;
 import com.archiiro.app.DTShop.Service.ProductSaleService;
@@ -27,7 +27,7 @@ public class ProductSaleServiceImpl extends SupportServiceImpl<ProductSale, Long
     private ProductRepository productRepository;
 
     @Autowired
-    private ImagePathRepository imagePathRepository;
+    private ImageRepository imageRepository;
 
     @Override
     public List<ProductSaleDto> getAllDto() {
@@ -66,28 +66,28 @@ public class ProductSaleServiceImpl extends SupportServiceImpl<ProductSale, Long
                 productSale.setProduct(product);
             }
         }
-        if(dto.getImagePaths() != null && dto.getImagePaths().size() > 0) {
-            Iterator<ImagePathDto> iterator = dto.getImagePaths().iterator();
-            HashSet<ImagePath> imagePaths = new HashSet<ImagePath>();
+        if(dto.getImages() != null && dto.getImages().size() > 0) {
+            Iterator<ImageDto> iterator = dto.getImages().iterator();
+            HashSet<Image> images = new HashSet<Image>();
             while (iterator.hasNext()) {
-                ImagePathDto imagePathDto = iterator.next();
-                ImagePath imagePath = null;
-                if(imagePathDto.getId() != null) {
-                    imagePath = imagePathRepository.getImagePath(imagePathDto.getId());
+                ImageDto imageDto = iterator.next();
+                Image image = null;
+                if(imageDto.getId() != null) {
+                    image = imageRepository.getImage(imageDto.getId());
                 }
-                if(imagePath == null) {
-                    imagePath = new ImagePath();
+                if(image == null) {
+                    image = new Image();
                 }
                 if(productSale != null) {
-                    imagePath.setProductSale(productSale);
+                    image.setProductSale(productSale);
                 }
-                imagePaths.add(imagePath);
+                images.add(image);
             }
-            if(productSale.getImagePaths() != null) {
-                productSale.getImagePaths().clear();
-                productSale.getImagePaths().addAll(imagePaths);
+            if(productSale.getImages() != null) {
+                productSale.getImages().clear();
+                productSale.getImages().addAll(images);
             } else {
-                productSale.setImagePaths(imagePaths);
+                productSale.setImages(images);
             }
         }
         productSale = this.save(productSale);

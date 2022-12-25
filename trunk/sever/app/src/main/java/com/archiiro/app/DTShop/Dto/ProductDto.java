@@ -1,8 +1,10 @@
 package com.archiiro.app.DTShop.Dto;
 
+import com.archiiro.app.DTShop.Domain.Image;
 import com.archiiro.app.DTShop.Domain.Product;
 
-import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ProductDto {
     private Long id;
@@ -16,12 +18,12 @@ public class ProductDto {
     private Integer status;
     private TypeProductDto typeProduct;
     private Long idTypeProduct;
+    private Set<ImageDto> images;
 
     public ProductDto() {
 
     }
-
-    public ProductDto(Product entity) {
+    public ProductDto(Product entity, boolean includeImage) {
         if(entity != null) {
             this.id = entity.getId();
             this.code = entity.getCode();
@@ -35,6 +37,14 @@ public class ProductDto {
             if(entity.getTypeProduct() != null && entity.getTypeProduct().getId() != null) {
                 this.typeProduct = new TypeProductDto(entity.getTypeProduct());
                 this.idTypeProduct = entity.getTypeProduct().getId();
+            }
+            if(includeImage) {
+                if(entity.getImages() != null && entity.getImages().size() > 0) {
+                    this.images = new HashSet<ImageDto>();
+                    for(Image image : entity.getImages()) {
+                        this.images.add(new ImageDto(image, false));
+                    }
+                }
             }
         }
     }
@@ -125,5 +135,13 @@ public class ProductDto {
 
     public void setIdTypeProduct(Long idTypeProduct) {
         this.idTypeProduct = idTypeProduct;
+    }
+
+    public Set<ImageDto> getImages() {
+        return images;
+    }
+
+    public void setImages(Set<ImageDto> images) {
+        this.images = images;
     }
 }

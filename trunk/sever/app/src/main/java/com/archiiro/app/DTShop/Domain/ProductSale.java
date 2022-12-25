@@ -35,7 +35,7 @@ public class ProductSale {
 
     @OneToMany(mappedBy = "productSale", cascade = CascadeType.ALL, orphanRemoval = true)
     @NotFound(action = NotFoundAction.IGNORE)
-    private Set<ImagePath> imagePaths;
+    private Set<Image> images;
 
     public Long getId() {
         return id;
@@ -69,6 +69,14 @@ public class ProductSale {
         this.sale = sale;
     }
 
+    public Boolean getVoided() {
+        return voided;
+    }
+
+    public void setVoided(Boolean voided) {
+        this.voided = voided;
+    }
+
     public Product getProduct() {
         return product;
     }
@@ -77,11 +85,11 @@ public class ProductSale {
         this.product = product;
     }
 
-    public Set<ImagePath> getImagePaths() {
-        return imagePaths;
+    public Set<Image> getImages() {
+        return images;
     }
 
-    public void setImagePaths(Set<ImagePath> imagePaths) {
-        this.imagePaths = imagePaths;
+    public void setImages(Set<Image> images) {
+        this.images = images;
     }
 }
